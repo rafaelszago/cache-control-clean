@@ -1,0 +1,10 @@
+{
+  "name": "cache-control-clean",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^15.6.1",
+    "typescript": "^4.2.4"
+  }
+}
