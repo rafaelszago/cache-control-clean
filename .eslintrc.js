@@ -5,9 +5,10 @@ module.exports = {
     node: true,
   },
   extends: [
+    'standard',
+    'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'prettier/standard',
+    'plugin:@typescript-eslint/eslint-recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -17,12 +18,9 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: [
-    '@typescript-eslint',
-    'prettier',
-  ],
+  plugins: ['@typescript-eslint', 'prettier'],
   rules: {
     'prettier/prettier': 'error',
     'space-before-function-paren': 'off',
   },
-};
+}
