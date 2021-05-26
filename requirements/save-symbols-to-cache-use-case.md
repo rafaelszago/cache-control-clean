@@ -2,11 +2,11 @@
 
 ## Use cases
 
-- [ ] Application execute command "Save Symbols"
+- [x] Application execute command "Save Symbols"
 - [ ] Application encode data
 - [ ] Application set timestamp
 - [x] Application clear old data in cache
-- [ ] Application save new data in cache
+- [x] Application save new data in cache
 - [ ] Application didn't return any error
 
 ## Exceptions - Can't delete data in cache
@@ -16,4 +16,4 @@
 
 ## Exceptions - Can't save data in cache
 
-1. Application return error
+- [x] Application return error
