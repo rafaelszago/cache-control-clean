@@ -2,16 +2,17 @@
 
 ## Use cases
 
-1. Application execute command "Save Symbols"
-2. Application encode data
-3. Application set timestamp
-4. Application clear old data in cache
-5. Application save new data in cache
-6. Application didn't return any error
+- [ ] Application execute command "Save Symbols"
+- [ ] Application encode data
+- [ ] Application set timestamp
+- [x] Application clear old data in cache
+- [ ] Application save new data in cache
+- [ ] Application didn't return any error
 
 ## Exceptions - Can't delete data in cache
 
-1. Application return error
+- [x] Application don't save new data in cache
+- [x] Application return error
 
 ## Exceptions - Can't save data in cache
 
