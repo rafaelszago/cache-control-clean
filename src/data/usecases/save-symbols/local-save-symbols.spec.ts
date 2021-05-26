@@ -1,14 +1,5 @@
-class LocalSaveSymbols {
-  constructor(private readonly cacheStore: CacheStore) {}
-
-  async save(): Promise<void> {
-    this.cacheStore.delete('symbols');
-  }
-}
-
-interface CacheStore {
-  delete: (key: string) => void;
-}
+import { CacheStore } from '@/data/protocols/cache';
+import { LocalSaveSymbols } from '@/data/usecases';
 
 class CacheStoreSpy implements CacheStore {
   deleteCallsCount = 0;
