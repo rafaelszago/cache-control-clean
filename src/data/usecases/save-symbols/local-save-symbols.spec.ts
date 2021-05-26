@@ -19,16 +19,6 @@ describe('LocalSaveSymbols', () => {
     expect(cacheStore.messages).toEqual([])
   })
 
-  test('Should call delete with correct key', async () => {
-    const { cacheStore, sut } = makeSut()
-    await sut.save(mockSymbols())
-    expect(cacheStore.messages).toEqual([
-      CacheStoreSpy.Message.delete,
-      CacheStoreSpy.Message.insert,
-    ])
-    expect(cacheStore.deleteKey).toBe('symbols')
-  })
-
   test('Should not insert new cache if delete fails', async () => {
     const { cacheStore, sut } = makeSut()
     cacheStore.simulateDeleteError()
@@ -45,6 +35,7 @@ describe('LocalSaveSymbols', () => {
       CacheStoreSpy.Message.delete,
       CacheStoreSpy.Message.insert,
     ])
+    expect(cacheStore.deleteKey).toBe('symbols')
     expect(cacheStore.insertKey).toBe('symbols')
     expect(cacheStore.insertValues).toEqual(symbols)
   })
