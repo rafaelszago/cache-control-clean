@@ -1,50 +1,5 @@
-import { CacheStore } from '@/data/protocols/cache'
+import { mockSymbols, CacheStoreSpy } from '@/data/tests'
 import { LocalSaveSymbols } from '@/data/usecases'
-import { SaveSymbols } from '@/domain/usecases'
-
-class CacheStoreSpy implements CacheStore {
-  deleteCallsCount = 0
-  insertCallsCount = 0
-  deleteKey: string
-  insertKey: string
-  insertValues: Array<SaveSymbols.Params> = []
-
-  delete(key: string): void {
-    this.deleteCallsCount++
-    this.deleteKey = key
-  }
-
-  insert(key: string, value: any): void {
-    this.insertCallsCount++
-    this.insertKey = key
-    this.insertValues = value
-  }
-
-  simulateDeleteError(): void {
-    jest.spyOn(CacheStoreSpy.prototype, 'delete').mockImplementationOnce(() => {
-      throw new Error()
-    })
-  }
-
-  simulateInsertError(): void {
-    jest.spyOn(CacheStoreSpy.prototype, 'insert').mockImplementationOnce(() => {
-      throw new Error()
-    })
-  }
-}
-
-const mockSymbols = (): Array<SaveSymbols.Params> => [
-  {
-    id: '1',
-    name: 'Bitcoin',
-    slug: 'BTC',
-  },
-  {
-    id: '1',
-    name: 'Ethereum',
-    slug: 'ETH',
-  },
-]
 
 type SutTypes = {
   sut: LocalSaveSymbols
