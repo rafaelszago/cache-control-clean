@@ -1,6 +1,6 @@
 import { CacheStore } from '@/data/protocols/cache'
 import { LocalSaveSymbols } from '@/data/usecases'
-import { SaveSymbols } from '@/domain'
+import { SaveSymbols } from '@/domain/usecases'
 
 class CacheStoreSpy implements CacheStore {
   deleteCallsCount = 0
