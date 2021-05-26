@@ -13,21 +13,19 @@ const makeSut = (): SutTypes => {
 }
 
 describe('LocalSaveSymbols', () => {
-  test('Should not delete cache on sut.ini', () => {
+  test('Should not delete or insert cache on sut.ini', () => {
     const { cacheStore } = makeSut()
     new LocalSaveSymbols(cacheStore)
-    expect(cacheStore.deleteCallsCount).toBe(0)
-  })
-
-  test('Should delete old cache on sut.save', async () => {
-    const { cacheStore, sut } = makeSut()
-    await sut.save(mockSymbols())
-    expect(cacheStore.deleteCallsCount).toBe(1)
+    expect(cacheStore.messages).toEqual([])
   })
 
   test('Should call delete with correct key', async () => {
     const { cacheStore, sut } = makeSut()
     await sut.save(mockSymbols())
+    expect(cacheStore.messages).toEqual([
+      CacheStoreSpy.Message.delete,
+      CacheStoreSpy.Message.insert,
+    ])
     expect(cacheStore.deleteKey).toBe('symbols')
   })
 
@@ -35,7 +33,7 @@ describe('LocalSaveSymbols', () => {
     const { cacheStore, sut } = makeSut()
     cacheStore.simulateDeleteError()
     const promise = sut.save(mockSymbols())
-    expect(cacheStore.insertCallsCount).toBe(0)
+    expect(cacheStore.messages).toEqual([CacheStoreSpy.Message.delete])
     expect(promise).rejects.toThrow()
   })
 
@@ -43,8 +41,10 @@ describe('LocalSaveSymbols', () => {
     const { cacheStore, sut } = makeSut()
     const symbols = mockSymbols()
     await sut.save(symbols)
-    expect(cacheStore.deleteCallsCount).toBe(1)
-    expect(cacheStore.insertCallsCount).toBe(1)
+    expect(cacheStore.messages).toEqual([
+      CacheStoreSpy.Message.delete,
+      CacheStoreSpy.Message.insert,
+    ])
     expect(cacheStore.insertKey).toBe('symbols')
     expect(cacheStore.insertValues).toEqual(symbols)
   })
@@ -53,7 +53,10 @@ describe('LocalSaveSymbols', () => {
     const { cacheStore, sut } = makeSut()
     cacheStore.simulateInsertError()
     const promise = sut.save(mockSymbols())
-    expect(cacheStore.insertCallsCount).toBe(0)
+    expect(cacheStore.messages).toEqual([
+      CacheStoreSpy.Message.delete,
+      CacheStoreSpy.Message.insert,
+    ])
     expect(promise).rejects.toThrow()
   })
 })
