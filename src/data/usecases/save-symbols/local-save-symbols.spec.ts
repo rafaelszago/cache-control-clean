@@ -25,6 +25,12 @@ class CacheStoreSpy implements CacheStore {
       throw new Error()
     })
   }
+
+  simulateInsertError(): void {
+    jest.spyOn(CacheStoreSpy.prototype, 'insert').mockImplementationOnce(() => {
+      throw new Error()
+    })
+  }
 }
 
 const mockSymbols = (): Array<SaveSymbols.Params> => [
@@ -81,12 +87,18 @@ describe('LocalSaveSymbols', () => {
   test('Should insert new cache if delete succeeds', async () => {
     const { cacheStore, sut } = makeSut()
     const symbols = mockSymbols()
-
     await sut.save(symbols)
-
     expect(cacheStore.deleteCallsCount).toBe(1)
     expect(cacheStore.insertCallsCount).toBe(1)
     expect(cacheStore.insertKey).toBe('symbols')
     expect(cacheStore.insertValues).toEqual(symbols)
+  })
+
+  test('Should throw error if insert fails', async () => {
+    const { cacheStore, sut } = makeSut()
+    cacheStore.simulateInsertError()
+    const promise = sut.save(mockSymbols())
+    expect(cacheStore.insertCallsCount).toBe(0)
+    expect(promise).rejects.toThrow()
   })
 })
