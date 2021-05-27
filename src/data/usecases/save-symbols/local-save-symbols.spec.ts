@@ -30,7 +30,7 @@ describe('LocalSaveSymbols', () => {
     const timestamp = new Date()
     const { cacheStore, sut } = makeSut()
     const symbols = mockSymbols()
-    await sut.save(symbols)
+    const promise = sut.save(symbols)
     expect(cacheStore.messages).toEqual([
       CacheStoreSpy.Message.delete,
       CacheStoreSpy.Message.insert,
@@ -41,6 +41,7 @@ describe('LocalSaveSymbols', () => {
       timestamp,
       data: symbols,
     })
+    await expect(promise).resolves.toBeFalsy()
   })
 
   test('Should throw error if insert fails', async () => {
