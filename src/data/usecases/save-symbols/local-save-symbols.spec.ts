@@ -15,14 +15,14 @@ const makeSut = (timestamp = new Date()): SutTypes => {
 describe('LocalSaveSymbols', () => {
   test('Should not delete or insert cache on sut.ini', () => {
     const { cacheStore } = makeSut()
-    expect(cacheStore.messages).toEqual([])
+    expect(cacheStore.actions).toEqual([])
   })
 
   test('Should not insert new cache if delete fails', async () => {
     const { cacheStore, sut } = makeSut()
     cacheStore.simulateDeleteError()
     const promise = sut.save(mockSymbols())
-    expect(cacheStore.messages).toEqual([CacheStoreSpy.Message.delete])
+    expect(cacheStore.actions).toEqual([CacheStoreSpy.Action.delete])
     await expect(promise).rejects.toThrow()
   })
 
@@ -31,9 +31,9 @@ describe('LocalSaveSymbols', () => {
     const { cacheStore, sut } = makeSut()
     const symbols = mockSymbols()
     const promise = sut.save(symbols)
-    expect(cacheStore.messages).toEqual([
-      CacheStoreSpy.Message.delete,
-      CacheStoreSpy.Message.insert,
+    expect(cacheStore.actions).toEqual([
+      CacheStoreSpy.Action.delete,
+      CacheStoreSpy.Action.insert,
     ])
     expect(cacheStore.deleteKey).toBe('symbols')
     expect(cacheStore.insertKey).toBe('symbols')
@@ -48,9 +48,9 @@ describe('LocalSaveSymbols', () => {
     const { cacheStore, sut } = makeSut()
     cacheStore.simulateInsertError()
     const promise = sut.save(mockSymbols())
-    expect(cacheStore.messages).toEqual([
-      CacheStoreSpy.Message.delete,
-      CacheStoreSpy.Message.insert,
+    expect(cacheStore.actions).toEqual([
+      CacheStoreSpy.Action.delete,
+      CacheStoreSpy.Action.insert,
     ])
     await expect(promise).rejects.toThrow()
   })
