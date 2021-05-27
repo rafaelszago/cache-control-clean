@@ -5,10 +5,9 @@ module.exports = {
     node: true,
   },
   extends: [
-    'standard',
-    'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
+    'prettier/@typescript-eslint',
+    'prettier/standard',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -22,5 +21,6 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'space-before-function-paren': 'off',
+    'react/prop-types': 'off',
   },
 }
