@@ -8,8 +8,7 @@ export class LocalSaveSymbols {
   ) {}
 
   async save(symbols: Array<SaveSymbols.Params>): Promise<void> {
-    this.cacheStore.delete('symbols')
-    this.cacheStore.insert('symbols', {
+    this.cacheStore.replace('symbols', {
       timestamp: this.timestamp,
       data: symbols,
     })
