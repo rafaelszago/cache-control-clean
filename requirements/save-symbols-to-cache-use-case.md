@@ -4,10 +4,10 @@
 
 - [x] Application execute command "Save Symbols"
 - [ ] Application encode data
-- [ ] Application set timestamp
+- [x] Application set timestamp
 - [x] Application clear old data in cache
 - [x] Application save new data in cache
-- [ ] Application didn't return any error
+- [x] Application didn't return any error
 
 ## Exceptions - Can't delete data in cache
 

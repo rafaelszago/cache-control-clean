@@ -10,7 +10,6 @@ Feature: List all symbols
     When user requires all symbols
     Then application fetch all symbols from API
 
-
   Scenario: User has no internet connection
     Given user has no internet connection
     And has symbols stored in cache
